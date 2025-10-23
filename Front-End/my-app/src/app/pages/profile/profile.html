@@ -1,0 +1,95 @@
+ <div class="profile-page">
+   <div class="container">
+     <h1>My Profile</h1>
+     
+     <div class="profile-card">
+       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+         <div class="form-row">
+           <div class="form-group">
+             <label for="firstName">First Name</label>
+             <input
+               id="firstName"
+               type="text"
+               formControlName="firstName"
+               class="form-control"
+               [class.error]="isFieldInvalid('firstName')"
+             >
+             <div *ngIf="isFieldInvalid('firstName')" class="error-message">
+               First name is required
+             </div>
+           </div>
+           
+           <div class="form-group">
+             <label for="lastName">Last Name</label>
+             <input
+               id="lastName"
+               type="text"
+               formControlName="lastName"
+               class="form-control"
+               [class.error]="isFieldInvalid('lastName')"
+             >
+             <div *ngIf="isFieldInvalid('lastName')" class="error-message">
+               Last name is required
+             </div>
+           </div>
+         </div>
+         
+         <div class="form-group">
+           <label for="email">Email</label>
+           <input
+             id="email"
+             type="email"
+             formControlName="email"
+             class="form-control"
+             [class.error]="isFieldInvalid('email')"
+           >
+           <div *ngIf="isFieldInvalid('email')" class="error-message">
+             Valid email is required
+           </div>
+         </div>
+         
+         <div class="form-group">
+           <label for="phone">Phone</label>
+           <input
+             id="phone"
+             type="tel"
+             formControlName="phone"
+             class="form-control"
+           >
+         </div>
+         
+         <div class="form-actions">
+           <button
+             type="submit"
+             class="btn btn-primary"
+             [disabled]="profileForm.invalid || loading"
+           >
+             <app-loading-spinner 
+               *ngIf="loading" 
+               [message]="''"
+               [overlay]="false"
+             ></app-loading-spinner>
+             <span *ngIf="!loading">Update Profile</span>
+           </button>
+           
+           <button
+             type="button"
+             class="btn btn-secondary"
+             (click)="resetForm()"
+             [disabled]="loading"
+           >
+             Reset
+           </button>
+         </div>
+       </form>
+     </div>
+     
+     <div *ngIf="successMessage" class="alert alert-success">
+       {{ successMessage }}
+     </div>
+     
+     <div *ngIf="errorMessage" class="alert alert-error">
+       {{ errorMessage }}
+     </div>
+   </div>
+ </div>

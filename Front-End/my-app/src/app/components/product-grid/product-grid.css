@@ -1,0 +1,19 @@
+ .product-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+   gap: 2rem;
+   padding: 1rem 0;
+ }
+ 
+ .empty-state {
+   text-align: center;
+   padding: 3rem;
+   color: #666;
+ }
+ 
+ @media (max-width: 768px) {
+   .product-grid {
+     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+     gap: 1rem;
+   }
+ }

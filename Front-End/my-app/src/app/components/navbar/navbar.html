@@ -1,0 +1,55 @@
+<nav class="navbar">
+  <div class="nav-brand">
+    <a routerLink="/" class="logo">ShopEasy</a>
+  </div>
+  <nav class="navbar">
+  <a routerLink="/">Home</a>
+  <a routerLink="/products">Products</a>
+  <a routerLink="/testimonials">Testimonials</a>
+  <a routerLink="/faq">FAQ</a>
+  <a routerLink="/admin">Dashboard</a>
+</nav>
+
+  <div class="nav-search">
+    <input 
+      type="text" 
+      placeholder="Search products..." 
+      [(ngModel)]="searchQuery"
+      (keyup.enter)="onSearch()"
+      class="search-input"
+    />
+    <button (click)="onSearch()" class="search-btn">Search</button>
+  </div>
+
+  <div class="nav-links">
+    <a routerLink="/" class="nav-link">Home</a>
+    <a routerLink="/products" class="nav-link">Products</a>
+    <a routerLink="/categories" class="nav-link">Categories</a>
+  </div>
+
+  <div class="nav-actions">
+    <a routerLink="/cart" class="nav-action">
+      <span class="cart-icon">🛒</span>
+      <span class="cart-count">{{ cartCount$ | async }}</span>
+    </a>
+
+    <div class="user-section">
+      <ng-container *ngIf="(isAuth$ | async); else loggedOut">
+        <div class="user-menu">
+          <span class="user-greeting">Hello, {{ (user$ | async)?.firstName }}</span>
+          <div class="dropdown">
+            <button class="dropdown-toggle">▼</button>
+            <div class="dropdown-menu">
+              <a routerLink="/profile" class="dropdown-item">Profile</a>
+              <a routerLink="/orders" class="dropdown-item">Orders</a>
+              <button (click)="logout()" class="dropdown-item">Logout</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #loggedOut>
+        <a routerLink="/login" class="nav-link">Login</a>
+        <a routerLink="/register" class="nav-link">Register</a>
+      </ng-template>
+    </div>
+  </div>

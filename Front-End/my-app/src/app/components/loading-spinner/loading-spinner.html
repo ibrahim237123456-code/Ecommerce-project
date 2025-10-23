@@ -1,0 +1,21 @@
+<div class="loading-container" [class.overlay]="overlay">
+  <div class="spinner">
+    <div class="spinner-circle"></div>
+    <p *ngIf="message" class="loading-message">{{ message }}</p>
+  </div>
+  <div class="spinner-backdrop" *ngIf="loading$ | async">
+  <div class="spinner"></div>
+</div>
+<div *ngIf="loading$ | async" class="spinner-overlay" [class.overlay]="overlay">
+  <div class="spinner" [ngClass]="color"></div>
+  <p class="message">{{ message }}</p>
+</div>
+
+<div *ngIf="(loading$ | async)" 
+     class="loading-overlay" 
+     [class.overlay]="overlay">
+  <div class="spinner"></div>
+  <p>{{ message }}</p>
+</div>
+
+</div>

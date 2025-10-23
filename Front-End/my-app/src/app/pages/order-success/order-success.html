@@ -1,0 +1,51 @@
+<div class="order-success-page">
+  <div class="container">
+    <div class="success-card">
+      <div class="success-icon">✅</div>
+      <h1>Order Placed Successfully!</h1>
+      <p class="success-message">Thank you for your purchase. Your order has been confirmed.</p>
+      
+      <div *ngIf="loading" class="loading-container">
+        <app-loading-spinner message="Loading order details..."></app-loading-spinner>
+      </div>
+      
+      <div *ngIf="order && !loading" class="order-details">
+        <div class="detail-item">
+          <strong>Order ID:</strong>
+          <span>{{ order.id }}</span>
+        </div>
+        <div class="detail-item">
+          <strong>Order Date:</strong>
+          <span>{{ order.createdAt | date:'fullDate' }}</span>
+        </div>
+        <div class="detail-item">
+          <strong>Total Amount:</strong>
+          <span class="total-amount">{{ order.total | currency }}</span>
+        </div>
+        <div class="detail-item">
+          <strong>Status:</strong>
+          <span [class]="'status status-' + order.status">{{ order.status }}</span>
+        </div>
+        
+        <div *ngIf="order.trackingNumber" class="detail-item">
+          <strong>Tracking Number:</strong>
+          <span class="tracking-number">{{ order.trackingNumber }}</span>
+        </div>
+      </div>
+      
+      <div class="action-buttons">
+        <a routerLink="/orders" class="btn btn-primary">View My Orders</a>
+        <a routerLink="/products" class="btn btn-secondary">Continue Shopping</a>
+      </div>
+      
+      <div class="next-steps">
+        <h3>What's Next?</h3>
+        <ul>
+          <li>You will receive an order confirmation email shortly</li>
+          <li>We'll notify you when your order ships</li>
+          <li>Estimated delivery: 3-5 business days</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

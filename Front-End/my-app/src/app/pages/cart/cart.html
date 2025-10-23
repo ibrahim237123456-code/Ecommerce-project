@@ -1,0 +1,108 @@
+  <div class="cart-page">
+    <div class="container">
+      <h1>Shopping Cart</h1>
+      
+      <div class="cart-layout">
+        <!-- Cart Items -->
+        <div class="cart-items">
+          <div *ngIf="loading" class="loading-container">
+            <app-loading-spinner message="Loading cart..."></app-loading-spinner>
+          </div>
+          <div *ngIf="!loading && cartItems.length === 0" class="empty-cart">
+            <div class="empty-icon">🛒</div>
+            <h2>Your cart is empty</h2>
+            <p>Browse our products and add items to your cart</p>
+            <a routerLink="/products" class="btn btn-primary">Start Shopping</a>
+          </div>
+          <div *ngFor="let item of cartItems" class="cart-item">
+            <img [src]="item.image" [alt]="item.title" class="item-image">
+            
+            <div class="item-details">
+              <h3 class="item-title">{{ item.title }}</h3>
+              <p class="item-category">{{ item.category }}</p>
+              <p class="item-price">{{ item.unitPrice | currency }}</p>
+              <p class="stock-info" [class.low-stock]="item.stock < 10">
+                {{ item.stock }} in stock
+              </p>
+            </div>
+            <div class="quantity-controls">
+              <button 
+                (click)="decreaseQuantity(item.productId)" 
+                class="quantity-btn"
+                [disabled]="item.quantity <= 1"
+              >-</button>
+              <input 
+                type="number" 
+                [value]="item.quantity" 
+                (change)="updateQuantity(item.productId, $event)"
+                min="1"
+                [max]="item.stock"
+                class="quantity-input"
+              >
+              <button 
+                (click)="increaseQuantity(item.productId)" 
+                class="quantity-btn"
+                [disabled]="item.quantity >= item.stock"
+              >+</button>
+            </div>
+            <div class="item-total">
+              {{ (item.quantity * item.unitPrice) | currency }}
+            </div>
+            <button 
+              (click)="removeItem(item.productId)" 
+              class="remove-btn"
+              title="Remove item"
+            >
+              🗑️
+            </button>
+          </div>
+        </div>
+                <div class="cart-summary" *ngIf="cartItems.length > 0">
+          <h2>Order Summary</h2>
+          
+          <div class="summary-line">
+            <span>Subtotal ({{ cartSummary.itemCount }} items):</span>
+            <span>{{ cartSummary.subtotal | currency }}</span>
+          </div>
+          
+          <div class="summary-line">
+            <span>Shipping:</span>
+            <span>{{ cartSummary.shipping | currency }}</span>
+          </div>
+          
+          <div class="summary-line">
+            <span>Tax:</span>
+            <span>{{ cartSummary.tax | currency }}</span>
+          </div>
+          
+          <div class="summary-total">
+            <span>Total:</span>
+            <span>{{ cartSummary.total | currency }}</span>
+          </div>
+          <div class="shipping-note" *ngIf="cartSummary.subtotal < 100">
+            <p>🎁 Add {{ 100 - cartSummary.subtotal | currency }} more for f
+          </div>
+          <button 
+            (click)="proceedToCheckout()" 
+            class="checkout-btn"
+            [disabled]="cartItems.length === 0"
+          >
+            Proceed to Checkout
+          </button>
+          <a routerLink="/products" class="continue-shopping">
+            Continue Shopping
+          </a>
+        </div>
+      </div>
+      <!-- Recently Viewed / Recommended -->
+      <div *ngIf="cartItems.length > 0" class="recommendations">
+        <h2>You Might Also Like</h2>
+        <div class="recommendation-items">
+          <!-- يمكن إضافة منتجات مقترحة هنا -->
+          <div class="recommendation-placeholder">
+            <p>Recommended products will appear here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

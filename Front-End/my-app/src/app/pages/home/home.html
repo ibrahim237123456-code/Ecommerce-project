@@ -1,0 +1,52 @@
+   <div class="home-page">
+     <!-- Hero Section -->
+     <section class="hero">
+       <div class="hero-content">
+         <h1>Welcome to MY-APP</h1>
+         <p>Discover amazing products at great prices</p>
+         <a routerLink="/products" class="cta-button">Shop Now</a>
+       </div>
+     </section>
+     <!-- Featured Products -->
+     <section class="featured-section">
+       <div class="container">
+         <h2>Featured Products</h2>
+         <p class="section-subtitle">Check out our most popular items</p>
+         
+         <app-loading-spinner *ngIf="loading" message="Loading featured products..."></app-loading-spinner>
+         
+         <app-product-grid *ngIf="!loading" [products]="featuredProducts"></app-product-grid>
+         
+         <div class="view-all">
+           <a routerLink="/products" class="view-all-btn">View All Products</a>
+         </div>
+       </div>
+     </section>
+     <!-- Features Section -->
+     <section class="features-section">
+       <div class="container">
+         <div class="features-grid">
+           <div class="feature">
+             <div class="feature-icon">🚚</div>
+             <h3>Free Shipping</h3>
+             <p>Free shipping on orders over $100</p>
+           </div>
+           <div class="feature">
+             <div class="feature-icon">↩️</div>
+             <h3>30-Day Returns</h3>
+             <p>Not satisfied? Return within 30 days</p>
+           </div>
+           <div class="feature">
+             <div class="feature-icon">🔒</div>
+             <h3>Secure Payment</h3>
+             <p>Your payment information is safe</p>
+           </div>
+           <div class="feature">
+             <div class="feature-icon">📞</div>
+             <h3>24/7 Support</h3>
+             <p>We're here to help anytime</p>
+           </div>
+         </div>
+       </div>
+     </section>
+   </div>

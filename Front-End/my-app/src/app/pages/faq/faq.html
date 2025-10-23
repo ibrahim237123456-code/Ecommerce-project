@@ -1,0 +1,30 @@
+<div class="faq-container">
+  <h2>Frequently Asked Questions</h2>
+<section class="faq-section">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq" *ngFor="let item of faqs">
+    <h4>{{ item.question }}</h4>
+    <p>{{ item.answer }}</p>
+  </div>
+</section>
+
+  <form (ngSubmit)="addFAQ()" class="faq-form">
+    <input type="text" [(ngModel)]="newFAQ.question" name="question" placeholder="Question" required />
+    <textarea [(ngModel)]="newFAQ.answer" name="answer" placeholder="Answer" required></textarea>
+    <input type="text" [(ngModel)]="newFAQ.category" name="category" placeholder="Category (optional)" />
+    <button type="submit">Add FAQ</button>
+  </form>
+
+  <hr />
+
+  <div *ngIf="isLoading" class="loading">Loading FAQs...</div>
+
+  <div class="faq-list">
+    <div *ngFor="let faq of faqs" class="faq-card">
+      <h4>{{ faq.question }}</h4>
+      <p>{{ faq.answer }}</p>
+      <small *ngIf="faq.category">Category: {{ faq.category }}</small>
+      <button (click)="deleteFAQ(faq._id!)" class="delete-btn">Delete</button>
+    </div>
+  </div>
+</div>

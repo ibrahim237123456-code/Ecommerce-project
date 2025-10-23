@@ -1,0 +1,11 @@
+<div class="product-grid">
+  <app-product-card 
+    *ngFor="let product of products" 
+    [product]="product"
+    class="product-item"
+  ></app-product-card>
+</div>
+    
+<div *ngIf="products.length === 0" class="empty-state">
+  <p>No products found.</p>
+</div>

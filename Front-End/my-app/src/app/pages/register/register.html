@@ -1,0 +1,113 @@
+ <div class="register-page">
+   <div class="container">
+     <div class="register-card">
+       <h1>Create Account</h1>
+       <p class="subtitle">Join us today! Create your account to get started.</p>
+       
+       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+         <div class="form-row">
+           <div class="form-group">
+             <label for="firstName">First Name</label>
+             <input
+               id="firstName"
+               type="text"
+               formControlName="firstName"
+               class="form-control"
+               placeholder="Enter your first name"
+               [class.error]="isFieldInvalid('firstName')"
+             >
+             <div *ngIf="isFieldInvalid('firstName')" class="error-message">
+               First name is required
+             </div>
+           </div>
+           
+           <div class="form-group">
+             <label for="lastName">Last Name</label>
+             <input
+               id="lastName"
+               type="text"
+               formControlName="lastName"
+               class="form-control"
+               placeholder="Enter your last name"
+               [class.error]="isFieldInvalid('lastName')"
+             >
+             <div *ngIf="isFieldInvalid('lastName')" class="error-message">
+               Last name is required
+             </div>
+           </div>
+         </div>
+         
+         <div class="form-group">
+           <label for="email">Email Address</label>
+           <input
+             id="email"
+             type="email"
+             formControlName="email"
+             class="form-control"
+             placeholder="Enter your email"
+             [class.error]="isFieldInvalid('email')"
+           >
+           <div *ngIf="isFieldInvalid('email')" class="error-message">
+             <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
+             <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+           </div>
+         </div>
+         
+         <div class="form-group">
+           <label for="password">Password</label>
+           <input
+             id="password"
+             type="password"
+             formControlName="password"
+             class="form-control"
+             placeholder="Create a password"
+             [class.error]="isFieldInvalid('password')"
+           >
+           <div *ngIf="isFieldInvalid('password')" class="error-message">
+             <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+             <span *ngIf="registerForm.get('password')?.errors?.['minlength']">
+               Password must be at least 4 characters
+             </span>
+           </div>
+         </div>
+         
+         <div class="form-group">
+           <label for="confirmPassword">Confirm Password</label>
+           <input
+             id="confirmPassword"
+             type="password"
+             formControlName="confirmPassword"
+             class="form-control"
+             placeholder="Confirm your password"
+             [class.error]="isFieldInvalid('confirmPassword')"
+           >
+           <div *ngIf="isFieldInvalid('confirmPassword')" class="error-message">
+             <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
+               Please confirm your password
+             </span>
+             <span *ngIf="registerForm.hasError('passwordMismatch')">
+               Passwords do not match
+             </span>
+           </div>
+         </div>
+         
+         <button
+           type="submit"
+           class="register-btn"
+           [disabled]="registerForm.invalid || loading"
+         >
+           <app-loading-spinner *ngIf="loading" [message]="''"></app-loading-spinner>
+           <span *ngIf="!loading">Create Account</span>
+         </button>
+       </form>
+       
+       <div *ngIf="errorMessage" class="alert alert-error">
+         {{ errorMessage }}
+       </div>
+       
+       <div class="register-footer">
+         <p>Already have an account? <a routerLink="/login" class="link">Sign in here</a></p>
+       </div>
+     </div>
+   </div>
+ </div>

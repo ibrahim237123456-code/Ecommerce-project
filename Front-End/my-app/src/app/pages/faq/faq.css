@@ -1,0 +1,49 @@
+.faq-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 15px;
+}
+
+.faq-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-form input,
+.faq-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.faq-form button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.faq-list {
+  margin-top: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.faq-card {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}

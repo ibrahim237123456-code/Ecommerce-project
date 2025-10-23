@@ -1,0 +1,157 @@
+ <div class="checkout-page">
+   <div class="container">
+     <h1>Checkout</h1>
+     
+     <div class="checkout-layout">
+       <!-- Checkout Form -->
+       <div class="checkout-form">
+         <form [formGroup]="checkoutForm" (ngSubmit)="placeOrder()">
+           
+           <!-- Shipping Address -->
+           <section class="form-section">
+             <h2>Shipping Address</h2>
+             <div class="form-row">
+               <div class="form-group">
+                 <label>First Name *</label>
+                 <input type="text" formControlName="shippingFirstName" class="form-control">
+                 <div *ngIf="isFieldInvalid('shippingFirstName')" class="error-message">
+                   First name is required
+                 </div>
+               </div>
+               <div class="form-group">
+                 <label>Last Name *</label>
+                 <input type="text" formControlName="shippingLastName" class="form-control">
+                 <div *ngIf="isFieldInvalid('shippingLastName')" class="error-message">
+                   Last name is required
+                 </div>
+               </div>
+             </div>
+             
+             <div class="form-group">
+               <label>Street Address *</label>
+               <input type="text" formControlName="shippingStreet" class="form-control">
+               <div *ngIf="isFieldInvalid('shippingStreet')" class="error-message">
+                 Street address is required
+                 </div>
+             </div>
+             
+             <div class="form-row">
+               <div class="form-group">
+                 <label>City *</label>
+                 <input type="text" formControlName="shippingCity" class="form-control">
+                 <div *ngIf="isFieldInvalid('shippingCity')" class="error-message">
+                   City is required
+                 </div>
+               </div>
+               <div class="form-group">
+                 <label>State *</label>
+                 <input type="text" formControlName="shippingState" class="form-control">
+                 <div *ngIf="isFieldInvalid('shippingState')" class="error-message">
+                   State is required
+                 </div>
+               </div>
+               <div class="form-group">
+                 <label>ZIP Code *</label>
+                 <input type="text" formControlName="shippingZip" class="form-control">
+                 <div *ngIf="isFieldInvalid('shippingZip')" class="error-message">
+                   ZIP code is required
+                 </div>
+               </div>
+             </div>
+           </section>
+           <!-- Payment Method -->
+           <section class="form-section">
+             <h2>Payment Method</h2>
+             <div class="payment-methods">
+               <label class="payment-option">
+                 <input type="radio" formControlName="paymentMethod" value="credit-card" checked>
+                 <span class="radio-label">Credit Card</span>
+               </label>
+               <label class="payment-option">
+                 <input type="radio" formControlName="paymentMethod" value="paypal">
+                 <span class="radio-label">PayPal</span>
+               </label>
+               <label class="payment-option">
+                 <input type="radio" formControlName="paymentMethod" value="cash">
+                 <span class="radio-label">Cash on Delivery</span>
+               </label>
+             </div>
+           </section>
+           <!-- Billing Address (Optional) -->
+           <section class="form-section">
+             <label class="checkbox-label">
+               <input type="checkbox" formControlName="sameAsShipping">
+               Billing address same as shipping
+             </label>
+             <div *ngIf="!checkoutForm.get('sameAsShipping')?.value">
+               <h3>Billing Address</h3>
+               <div class="form-row">
+                 <div class="form-group">
+                   <label>First Name *</label>
+                   <input type="text" formControlName="billingFirstName" class="form-control">
+                 </div>
+                 <div class="form-group">
+                   <label>Last Name *</label>
+                   <input type="text" formControlName="billingLastName" class="form-control">
+                 </div>
+               </div>
+               
+               <div class="form-group">
+                 <label>Street Address *</label>
+                 <input type="text" formControlName="billingStreet" class="form-control">
+               </div>
+               
+               <div class="form-row">
+                 <div class="form-group">
+                   <label>City *</label>
+                   <input type="text" formControlName="billingCity" class="form-control">
+                 </div>
+                 <div class="form-group">
+                   <label>State *</label>
+                   <input type="text" formControlName="billingState" class="form-control">
+                 </div>
+                 <div class="form-group">
+                   <label>ZIP Code *</label>
+                   <input type="text" formControlName="billingZip" class="form-control">
+                 </div>
+               </div>
+             </div>
+           </section>
+           <button 
+             type="submit" 
+             class="place-order-btn"
+             [disabled]="checkoutForm.invalid || loading || cartSummary.itemCount === 0"
+           >
+             <app-loading-spinner *ngIf="loading" [message]="''"></app-loading-spinner>
+             <span *ngIf="!loading">
+               Place Order - {{ cartSummary.total | currency }}
+             </span>
+           </button>
+         </form>
+       </div>
+       <!-- Order Summary -->
+       <div class="order-summary">
+         <h2>Order Summary</h2>
+         <div class="summary-item">
+           <span>Items ({{ cartSummary.itemCount }}):</span>
+           <span>{{ cartSummary.subtotal | currency }}</span>
+         </div>
+         <div class="summary-item">
+           <span>Shipping:</span>
+           <span>{{ cartSummary.shipping | currency }}</span>
+         </div>
+         <div class="summary-item">
+           <span>Tax:</span>
+           <span>{{ cartSummary.tax | currency }}</span>
+         </div>
+         <div class="summary-total">
+           <span>Total:</span>
+           <span>{{ cartSummary.total | currency }}</span>
+         </div>
+         <div *ngIf="cartSummary.itemCount === 0" class="empty-cart-message">
+           Your cart is empty
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>

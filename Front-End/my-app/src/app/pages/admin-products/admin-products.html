@@ -1,0 +1,40 @@
+<div class="admin-products">
+  <h2> Manage Products</h2>
+
+  <div class="add-product-form">
+    <input type="text" placeholder="Product Name" [(ngModel)]="newProduct.name" />
+    <input type="number" placeholder="Price" [(ngModel)]="newProduct.price" />
+    <input type="text" placeholder="Category" [(ngModel)]="newProduct.category" />
+    <input type="text" placeholder="Image URL" [(ngModel)]="newProduct.image" />
+    <button (click)="addProduct()"> Add Product</button>
+  </div>
+
+  <div *ngIf="!loading; else loadingTpl">
+    <table>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td><img [src]="product.image" alt="{{product.name}}" width="60" /></td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency:'USD' }}</td>
+          <td>{{ product.category }}</td>
+          <td>
+            <button (click)="deleteProduct(product._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #loadingTpl>
+    <p>Loading products...</p>
+  </ng-template>
+</div>
